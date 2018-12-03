@@ -11,7 +11,9 @@ active
     {% for course in courses %}
         <div class="card mt-3 bg-light text-muted">
             <div class="card-body">
-                <h4 class="card-title">{{ course.title }}</h4>
+                <a href="{% url 'detail' course.pk %}">
+                    <h4 class="card-title">{{ course.title }}</h4>
+                </a>
                 <p class="card-text">{{ course.description }}</p>
             </div>
         </div>

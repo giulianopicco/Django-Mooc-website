@@ -1,4 +1,4 @@
 {
-"python.pythonPath": ".env/bin/python",
+"python.pythonPath": "C:\\Users\\Max\\envs\\.env\\Scripts\\python.exe",
   "python.linting.pylintEnabled": false
 }
