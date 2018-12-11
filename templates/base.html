@@ -25,7 +25,7 @@
                   <a class="nav-link" href="{% url "home" %}">Home</a>
               </li>
               <li class="nav-item {% block courses_active %}{% endblock %}">
-                  <a class="nav-link" href="{% url "courses" %}">Courses</a>
+                  <a class="nav-link" href="{% url "courses:list" %}">Courses</a>
               </li>
               <li class="nav-item {% block link_active %}{% endblock %}">
                   <a class="nav-link" href="#">Link</a>

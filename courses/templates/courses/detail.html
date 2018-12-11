@@ -15,8 +15,8 @@
                     <div class="card-body">
                     {% if course.step_set.all %}
                         {% for step in course.step_set.all %}
-                        <a href="{% url 'step' course.pk step.pk %}">
-                            <h5 class="card-title">{{step.title}}</h4>
+                        <a href="{% url 'courses:step' course.pk step.pk %}">
+                            <h5 class="card-title">{{step.title}}</h5>
                         </a>
                         <p class="card-text">{{step.description}}</p>
                         {% endfor %}

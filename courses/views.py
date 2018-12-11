@@ -13,7 +13,7 @@ def courses(request):
 
 def course_detail(request, pk):
     c = get_object_or_404(Course, pk=pk)
-    return render(request, 'courses/detail.html ', {'course':c,})
+    return render(request, 'courses/detail.html', {'course':c,})
 
 def step_detail(request, course_pk, step_pk):
     step = get_object_or_404(Step, course_id=course_pk, pk=step_pk)

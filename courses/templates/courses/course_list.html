@@ -8,15 +8,17 @@ active
 
 {% block content %}
     <div class="container mt-5">
-    {% for course in courses %}
-        <div class="card mt-3 bg-light text-muted">
-            <div class="card-body">
-                <a href="{% url 'detail' course.pk %}">
-                    <h4 class="card-title">{{ course.title }}</h4>
-                </a>
-                <p class="card-text">{{ course.description }}</p>
+        <div class="row">
+        {% for course in courses %}
+            <div class="card col-3 mx-auto mt-3 bg-light text-muted">
+                <div class="card-body">
+                    <a href="{% url 'courses:detail' course.pk %}">
+                        <h4 class="card-title">{{ course.title }}</h4>
+                    </a>
+                    <p class="card-text">{{ course.description }}</p>
+                </div>
             </div>
+        {% endfor %}
         </div>
-    {% endfor %}
     </div>
 {% endblock  %}
