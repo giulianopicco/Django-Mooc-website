@@ -1,17 +1,32 @@
 {% extends 'base.html' %}
+{% load course_extras %}
 {% block title %}{{ step.title }} - {{step.course.title}}{% endblock %}
 {% block courses_active %}active{% endblock %}
 {% block content %}
 <div class="container">
-    <div class="row mt-5">
-        <div class="col-lg-6 mx-auto">
+        <div class="row">
+            <div class="col-lg-6 mx-auto mt-5">
+                <div class="card bg-secondary text-light">
+                    <div class="card-body">
+                        This will take {{ step.description|wordcount|time_estimate }} minute{{ step.description|wordcount|time_estimate|pluralize }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="row">
+        <div class="col-lg-6 mx-auto mt-5">
             <div class="card">
                 <div class="card-body text-white bg-primary">
                     <h4 class="card-title"><a href="{% url 'courses:detail' pk=step.course_id %}" style="color: white!important;">{{step.course.title}}</a></h4>
                     <h5>{{ step.title }}</h5>
                     <hr style="border: 1px solid white">
                     <h5 class="card-text">{{step.description}}</h5>
-                    {{step.content|linebreaks}}
+                    {% with con=step.content %}
+                    {{con|linebreaks}}
+                    <br>
+                    <p>This step has {{ con|wordcount }} word{{ con|wordcount|pluralize }}</p>
+                    {% endwith %}
                 </div>
             </div>
         </div>

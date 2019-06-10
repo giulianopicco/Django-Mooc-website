@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize course_extras%}
 {% block title %}{{course.title}}{% endblock %}
 {% block courses_active %}active{% endblock %}
 {% block content %}
@@ -9,7 +10,8 @@
                 <div class="card">
                     <div class="card-body text-white bg-primary">
                         <h4 class="card-title">{{course.title}}</h4>
-                        <p class="card-text">{{course.description}}</p>
+                        <p class="card-text">{{course.description|markdown2html}}</p>
+                        <p>These are {{ course.step_set.count|apnumber }} step{{ course.step_set.count|pluralize }} on this course: {{ course.step_set.all|join:', ' }}</p>
                     </div>
                     
                     <div class="card-body">

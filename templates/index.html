@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load course_extras %}
 {% block title %}
 Home
 {% endblock %}
@@ -8,6 +9,18 @@ active
 
 
 {% block content %}
+    <div class="row">
+        <div class="col-6 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    {% nav_courses_list %}
+                </div>
+                <div class="card-body">
+                    Don't miss our later course. {% newest_course %}
+                </div>
+            </div>
+    </div>
+    </div>
 <section class='text-center mt-5 bg-light text-muted py-5'>
     <main>
         <h1>Welcome to the Elearning site!</h1>

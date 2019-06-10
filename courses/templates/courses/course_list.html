@@ -1,7 +1,9 @@
 {% extends "base.html" %}
-{% block title %}
-Courses
-{% endblock %}
+{% load static from staticfiles %}
+{% load course_extras %}
+
+{% block static %} <link rel="stylesheet" href="{% static "courses/css/courses.css" %}"> {% endblock %}
+{% block title %} Courses {% endblock %}
 {% block courses_active %}
 active
 {% endblock %}
@@ -10,15 +12,22 @@ active
     <div class="container mt-5">
         <div class="row">
         {% for course in courses %}
-            <div class="card col-3 mx-auto mt-3 bg-light text-muted">
+            <div class="card col-md-3 mx-auto mt-3 bg-light text-muted">
                 <div class="card-body">
                     <a href="{% url 'courses:detail' course.pk %}">
                         <h4 class="card-title">{{ course.title }}</h4>
                     </a>
-                    <p class="card-text">{{ course.description }}</p>
+                    {% if course.description|wordcount <= 5 %}
+                        <p class="card-text">{{ course.description|markdown2html }}</p>
+                    {% else %}
+                        <p class="card-text">{{ course.description|markdown2html|truncatewords:4 }}</p>
+                        <a href="{% url 'courses:detail' pk=course.pk %}">Read more</a>
+                    {% endif %}
+                    <div>Created on: {{ course.created_at|date:"F j, Y" }}</div>
                 </div>
             </div>
         {% endfor %}
+        <div>Have questions? Contact us! {{ email|urlize }}</div>
         </div>
     </div>
 {% endblock  %}
