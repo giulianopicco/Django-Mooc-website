@@ -1,4 +1,4 @@
-Django==2.1.5
+Django==2.2.10
 django-crispy-forms==1.7.2
 django-datatable-view==1.0
 django-debug-toolbar==2.2
