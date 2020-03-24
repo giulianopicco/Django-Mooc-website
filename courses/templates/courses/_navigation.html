@@ -1,12 +1,6 @@
 
-<div class="dropdown show">
-  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    List of courses
-  </a>
-
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    {% for course in courses %}
-        <a class="dropdown-item" href="{% url 'courses:detail' course.pk %}">{{ course.title }}</a>
-    {% endfor %}
-  </div>
-</div>
+{% for course in courses %}
+    <li><a class="dropdown-item" href="{% url 'courses:detail' course.id %}">{{ course.title }}</a></li>
+{% endfor %}
+<li><a class="dropdown-item text-primary bg-light" href="{% url "courses:list" %}">See all...</a></li>
+<li><a class="dropdown-item text-primary bg-light" href="{% url "courses:create" %}">Create new</a></li>
