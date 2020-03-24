@@ -79,5 +79,5 @@ class CourseViewsTest(TestCase):
                                                'step_pk': self.step.pk}))
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(self.step, resp.context['step'])
-        self.assertTemplateUsed(resp, 'courses/step_detail.html')
+        self.assertTemplateUsed(resp, 'courses/step_text_detail.html')
         self.assertContains(resp, self.step.title)

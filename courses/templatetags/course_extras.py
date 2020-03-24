@@ -21,14 +21,21 @@ def newest_course():
 
 @register.inclusion_tag('courses/_navigation.html')
 def nav_courses_list():
-    courses = Course.objects.all()
+    courses = Course.objects.filter(published=True).values('id', 'title').order_by('-created_at')[:5]  #just shows the last five courses
     return {'courses': courses}
 
 
 @register.filter('time_estimate')
 def time_estimate(word_count):
     """ Estimates the time it will take to complete a step """
-    return round(word_count/20)
+    # return round(word_count/20)
+    return round(word_count/2)
+
+
+@register.filter('time_estimate_quiz')
+def time_estimate_quiz(question_count):
+    """ Estimates the time it will take to complete a step """
+    return question_count * 2
 
 
 @register.filter('markdown2html')
