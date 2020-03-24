@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'rest_framework',
+    'debug_toolbar',
+    'crispy_forms',
+    'datatableview',
     'courses',
 ]
 
@@ -49,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # for development
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'learning_site.urls'
@@ -77,12 +83,27 @@ WSGI_APPLICATION = 'learning_site.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'mooc',
+        'USER': 'mooc',
+        'PASSWORD': 'asdf',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+        'TEST': {
+            'NAME': 'test_mooc',
+        }
     }
 }
+
 
 
 # Password validation
@@ -122,6 +143,33 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'assets'),
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'django.contrib.staticfiles.finders.FileSystemFinder',
 )
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'learning_site/static'),
+)
+
+# Crispy forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'suggestions')
+
+INTERNAL_IPS = ("127.0.0.1", "0.0.0.O")
+
+# DEBUG_TOOLBAR_CONFIG = {
+#     'SHOW_TOOLBAR_CALLBACK': lambda x: True
+# }
+
+# REST Framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSIONS_CLASSES': (
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly'
+    )
+}
