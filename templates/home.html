@@ -1,0 +1,84 @@
+{% extends 'page.html' %}
+{% load staticfiles humanize course_extras %}
+{% block extra-head %}
+{% endblock %}
+{% block page_content %}
+{#  <div class="row page-titles">#}
+{#    <div class="col-md-5 align-self-center">#}
+{#      <h3>Welcome to the Elearning site!</h3>#}
+{#    </div>#}
+{#    <div class="col-md-7 align-self-center">#}
+{#      <ol class="breadcrumb">#}
+{#        <li class="breadcrumb-item active">Dashboard</li>#}
+{#      </ol>#}
+{#    </div>#}
+{#  </div>#}
+{##}
+{#  <div class="row">#}
+{#    <div class="col-6 mx-auto">#}
+{#      <div class="card">#}
+{#        <div class="card-body">#}
+{##}
+{#          <div class="dropdown show">#}
+{#            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"#}
+{#               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+{#              List of courses#}
+{#            </a>#}
+{#            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">#}
+{#              {% nav_courses_list %}#}
+{#            </div>#}
+{#          </div>#}
+{#        </div>#}
+{#        <div class="card-body">#}
+{#          Don't miss our later course. {% newest_course %}#}
+{#        </div>#}
+{#      </div>#}
+{#    </div>#}
+{#  </div>#}
+
+  <div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">Dashboard</h3>
+    </div>
+    <div class="col-md-7 align-self-center">
+      <ol class="breadcrumb">
+          <li class="breadcrumb-item active">Dashboard</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 m-t-30">
+      <h4 class="m-b-2">Checkout our latest courses</h4>
+            <div class="card-deck">
+      {% for course in latest_courses %}
+
+      <div class="col-4">
+
+
+          <div class="card">
+            {#          <img class="card-img-top img-responsive" src="../assets/images/big/img1.jpg" alt="Card image cap">#}
+              <div class="card-body">
+                  <a href="{% url 'courses:detail' course.pk %}">
+                      <h4 class="card-title"><span
+                              class="label label-success label-rounded">steps: {{ course.total_steps }}</span></h4>
+                      <h4 class="card-title"><span class="  lstick"></span>{{ course.title }}</h4>
+                    {#            <h4 class="card-title">{{ course.title }}</h4>#}
+                  </a>
+                  <p class="card-text">{{ course.description|markdown2html }}</p>
+                  <p class="card-text">
+                      <small class="text-muted">{{ course.created_at }}</small>
+                  </p>
+              </div>
+          </div>
+
+      </div>
+      {% if forloop.counter|divisibleby:"3" %}
+        </div>
+        <div class="card-deck">
+      {% endif %}
+      {% endfor %}
+
+    </div>
+  </div>
+{% endblock %}

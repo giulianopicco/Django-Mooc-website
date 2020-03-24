@@ -1,0 +1,71 @@
+{% load staticfiles %}
+<nav class="navbar top-navbar navbar-expand-md navbar-light">
+    <!-- ============================================================== -->
+    <!-- Logo -->
+    <!-- ============================================================== -->
+    <div class="navbar-header">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <!-- Logo icon -->
+            <b>
+                <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                <!-- Dark Logo icon -->
+                <img src="{% static 'images/elearning.jpg' %}" alt="homepage" class="dark-logo" style="width: 80%;" />
+                <!-- Light Logo icon -->
+                <img src="{% static 'images/elearning.jpg' %}" alt="homepage" class="light-logo" style="width: 80%;" />
+            </b>
+            <!--End Logo icon -->
+        </a>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Logo -->
+    <!-- ============================================================== -->
+    <div class="navbar-collapse">
+        <!-- ============================================================== -->
+        <!-- toggle and nav items -->
+        <!-- ============================================================== -->
+        <ul class="navbar-nav mr-auto">
+            <!-- This is  -->
+            <li class="nav-item"><a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark"
+                                    href="javascript:void(0)"><i class="ti-menu"></i></a></li>
+            <li class="nav-item hidden-sm-down"></li>
+        </ul>
+        <!-- ============================================================== -->
+        <!-- User profile and search -->
+        <!-- ============================================================== -->
+        <ul class="navbar-nav my-lg-0">
+
+            <!-- ============================================================== -->
+            <!-- Search -->
+            <!-- ============================================================== -->
+            <li class="nav-item hidden-xs-down search-box"> <a class="nav-link hidden-sm-down waves-effect waves-dark" href="javascript:void(0)"><i class="ti-search"></i></a>
+                <form action="{% url 'courses:search' %}" method="get" class="app-search">
+                    <input type="text" name="q" class="form-control" placeholder="Search & enter"> <a class="srh-btn"><i class="ti-close"></i></a> </form>
+            </li>
+            <!-- ============================================================== -->
+            <!-- Profile -->
+            <!-- ============================================================== -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                     <i class="fa fa-user fa-lg"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right animated flipInY">
+                    <ul class="dropdown-user">
+                        <li>
+                            <div class="dw-user-box">
+                                <div class="u-img" style="width: 30px; text-align: center;">
+                                     <i class="fa fa-user fa-lg"></i>
+                                </div>
+                                <div class="u-text">
+                                    <h4>{{ request.user.username }}</h4>
+                                </div>
+                            </div>
+                        </li>
+                        <li role="separator" class="divider"></li>
+{#                        <li><a href="{% url 'logout' %}"><i class="fa fa-power-off"></i> Cerrar sesión</a></li>#}
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

@@ -1,0 +1,70 @@
+{% extends "page.html" %}
+{% load course_extras crispy_forms_tags %}
+{% block title %}
+Suggestions
+{% endblock %}
+
+{#{% block content %}#}
+{#    <div class="row mt-5">#}
+{#        <div class="col-6 mx-auto">#}
+{#            <div class="card">#}
+{#                <div class="card-body">#}
+{#                    <form action="" method="post">#}
+{#                        {{ form.as_p }}#}
+{#                        {% csrf_token %}#}
+{#                        <input type="submit" value="Submit" class="btn-primary btn-block">#}
+{#                    </form>#}
+{#                </div>#}
+{#            </div>#}
+{#    </div>#}
+{#    </div>#}
+{#<section class='text-center mt-5 bg-light text-muted py-5'>#}
+{#    <main>#}
+{#        <h1>Give us your suggestions!</h1>#}
+{#    </main>#}
+{#</section>#}
+{#{% endblock %}#}
+{% block page_content %}
+  <div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">Sugerir nuevo contenido</h3>
+    </div>
+{#    <div class="col-md-7 align-self-center">#}
+{#      <ol class="breadcrumb">#}
+{#        <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Inicio</a></li>#}
+{#        <li class="breadcrumb-item"><a href="{% url 'accion.list' %}">Acciones Programadas</a></li>#}
+{#        {% if form.instance.pk %}#}
+{#          <li class="breadcrumb-item active">Acualizar</li>#}
+{#        {% else %}#}
+{#          <li class="breadcrumb-item active">Crear</li>#}
+{#        {% endif %}#}
+{#      </ol>#}
+{#    </div>#}
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>{{ form.errors }}</p>
+            <div class="row">
+              <div class="col-12">{{ form.name|as_crispy_field }}</div>
+              <div class="col-6">{{ form.email|as_crispy_field }}</div>
+              <div class="col-6">{{ form.verify_email|as_crispy_field }}</div>
+              <div class="col-12">{{ form.suggestion|as_crispy_field }}</div>
+              <div class="d-none">{{ form.honey_pot|as_crispy_field }}</div>
+            </div>
+            <div class="button-group">
+              <button class="btn waves-effect waves-light btn-primary" type="submit">Guardar</button>
+              <a href="{% url 'home' %}" class="btn waves-effect waves-light btn-secondary">Cancelar</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block extra-js %}
+
+{% endblock %}

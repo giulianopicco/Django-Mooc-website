@@ -13,7 +13,15 @@ active
         <div class="col-6 mx-auto">
             <div class="card">
                 <div class="card-body">
-                    {% nav_courses_list %}
+
+                    <div class="dropdown show">
+                      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        List of courses
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        {% nav_courses_list %}
+                      </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     Don't miss our later course. {% newest_course %}
