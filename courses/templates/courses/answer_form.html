@@ -1,0 +1,74 @@
+{% extends "page.html" %}
+{% load course_extras crispy_forms_tags %}
+{% block title %}
+Create Answer
+{% endblock %}
+
+{% block page_content %}
+  <div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        {% if form.instance.id %}
+        <h3 class="text-themecolor">Edit answer | {{ question.title }}</h3>
+        {% else %}
+        <h3 class="text-themecolor">New answer | {{ question.title }}</h3>
+        {% endif %}
+    </div>
+  </div>
+  <div class="row">
+{#    <div class="col-12">#}
+{#      <div class="button-group text-right">#}
+{#      <a href="#" class="btn waves-effect waves-light btn-primary">Add Anwser</a>#}
+{#      </div>#}
+{#    </div>#}
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+{#            <div class="col-12">{{ form.order|as_crispy_field }}</div>#}
+{#            <div class="col-12">{{ form.text|as_crispy_field }}</div>#}
+            <div class="col-12">{{ formset }}</div>
+{#            <col-12>#}
+{#              <div class="form-group">#}
+{#                <div id="div_id_correct" class="switch">#}
+{#                  <label class="col-form-label">#}
+{#                    Correct Answer?#}
+{#                    <input type="checkbox" name="correct" class=""#}
+{#                           id="id_correct"#}
+{#                           {% if form.instance.correct %}checked{% endif %}>#}
+{#                    <span class="lever switch-col-teal"></span>#}
+{#                  </label>#}
+{#                </div>#}
+{#              </div>#}
+{#            </col-12>#}
+{#            {% if question_type == 'mc' %}#}
+{#              <col-12>#}
+{#                <div class="form-group">#}
+{#                  <div id="div_id_shuffle_anwsers" class="switch">#}
+{#                    <label class="col-form-label">#}
+{#                      Shuffle anwsers#}
+{#                      <input type="checkbox" name="shuffle_anwsers" class=""#}
+{#                             id="id_shuffle_anwsers"#}
+{#                             {% if form.instance.multiplechoicequestion.shuffle_anwsers %}checked{% endif %}>#}
+{#                      <span class="lever switch-col-teal"></span>#}
+{#                    </label>#}
+{#                  </div>#}
+{#                </div>#}
+{#              </col-12>#}
+{#            {% endif %}#}
+            <div class="button-group">
+              <button class="btn waves-effect waves-light btn-primary" type="submit">Guardar</button>
+              <a href="{{question.get_absolute_url}}" class="btn waves-effect waves-light btn-secondary">Cancelar</a>
+            </div>
+          </form>
+
+          {% if user.is_authenticated %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block extra-js %}
+    <!-- Footable -->
+{% endblock %}

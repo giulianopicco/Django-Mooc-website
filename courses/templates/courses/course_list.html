@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "page.html" %}
 {% load static from staticfiles %}
 {% load course_extras %}
 
@@ -8,26 +8,47 @@
 active
 {% endblock %}
 
-{% block content %}
-    <div class="container mt-5">
-        <div class="row">
-        {% for course in courses %}
-            <div class="card col-md-3 mx-auto mt-3 bg-light text-muted">
-                <div class="card-body">
-                    <a href="{% url 'courses:detail' course.pk %}">
-                        <h4 class="card-title">{{ course.title }}</h4>
-                    </a>
-                    {% if course.description|wordcount <= 5 %}
-                        <p class="card-text">{{ course.description|markdown2html }}</p>
-                    {% else %}
-                        <p class="card-text">{{ course.description|markdown2html|truncatewords:4 }}</p>
-                        <a href="{% url 'courses:detail' pk=course.pk %}">Read more</a>
-                    {% endif %}
-                    <div>Created on: {{ course.created_at|date:"F j, Y" }}</div>
-                </div>
-            </div>
-        {% endfor %}
-        <div>Have questions? Contact us! {{ email|urlize }}</div>
-        </div>
+{% block page_content %}
+{#    <div class="container mt-5">#}
+{#        <div class="row">#}
+{#        {% for course in courses %}#}
+{#            <div class="card col-md-3 mx-auto mt-3 bg-light text-muted">#}
+{#                <div class="card-body">#}
+{#                    <a href="{% url 'courses:detail' course.pk %}">#}
+{#                        <h4 class="card-title">{{ course.title }}</h4>#}
+{#                    </a>#}
+{#                    {% if course.description|wordcount <= 5 %}#}
+{#                        <p class="card-text">{{ course.description|markdown2html }}</p>#}
+{#                    {% else %}#}
+{#                        <p class="card-text">{{ course.description|markdown2html|truncatewords:4 }}</p>#}
+{#                        <a href="{% url 'courses:detail' pk=course.pk %}">Read more</a>#}
+{#                    {% endif %}#}
+{#                    <div>Created on: {{ course.created_at|date:"F j, Y" }}</div>#}
+{#                </div>#}
+{#            </div>#}
+{#        {% endfor %}#}
+{#        <div>Have questions? Contact us! {{ email|urlize }}</div>#}
+{#        </div>#}
+{#    </div>#}
+  <div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+      <h3 class="text-themecolor">Courses</h3>
     </div>
+    <div class="col-md-7 align-self-center">
+      <ol class="breadcrumb">
+{#        <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Inicio</a></li>#}
+        <li class="breadcrumb-item">Courses</li>
+      </ol>
+    </div>
+  </div>
+  <div class="button-group text-right">
+{#    <a href="{% url 'anuncio.create' %}" class="btn waves-effect waves-light btn-primary">Crear</a>#}
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <div class="table-responsive">
+        {{ datatable }}
+      </div>
+    </div>
+  </div>
 {% endblock  %}

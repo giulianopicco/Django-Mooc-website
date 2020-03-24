@@ -1,34 +1,57 @@
-{% extends 'base.html' %}
+{% extends 'page.html' %}
 {% load humanize course_extras%}
 {% block title %}{{course.title}}{% endblock %}
 {% block courses_active %}active{% endblock %}
-{% block content %}
-    <div class="container">
-        <div class="row mt-5">
-            <div class="col-lg-6 mx-auto">
+{% block page_content %}
 
-                <div class="card">
-                    <div class="card-body text-white bg-primary">
-                        <h4 class="card-title">{{course.title}}</h4>
-                        <p class="card-text">{{course.description|markdown2html}}</p>
-                        <p>These are {{ course.step_set.count|apnumber }} step{{ course.step_set.count|pluralize }} on this course: {{ course.step_set.all|join:', ' }}</p>
-                    </div>
-                    
-                    <div class="card-body">
-                    {% if course.step_set.all %}
-                        {% for step in course.step_set.all %}
-                        <a href="{% url 'courses:step' course.pk step.pk %}">
-                            <h5 class="card-title">{{step.title}}</h5>
-                        </a>
-                        <p class="card-text">{{step.description}}</p>
-                        {% endfor %}
-                    {% else %}
-                        <h5 class="card-title">There is no steps asigned to this course</h4>
-                    {% endif %}
-                    </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">{{course.title}}</h4>
+          <h6 class="card-subtitle">{{course.description|markdown2html}}</h6>
+
+          <div id="accordion2" role="tablist" class="minimal-faq" aria-multiselectable="true">
+
+            {% if steps %}
+              {% for step in steps %}
+                <div class="card m-b-0">
+              <div class="card-header" role="tab" id="headingOne{{ forloop.counter }}">
+                <h5 class="mb-0">
+                  <a class="link" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne{{ forloop.counter }}"
+                     aria-expanded="true" aria-controls="collapseOne{{ forloop.counter }}">
+                    {{ forloop.counter }}. {{ step.title }}
+                    {% if step.total_questions != None %}<span class="label label-info label-rounded">Revision</span>{% endif %}
+                  </a>
+                </h5>
+              </div>
+              <div id="collapseOne{{ forloop.counter }}" class="collapse" role="tabpanel" aria-labelledby="headingOne{{ forloop.counter }}">
+                <div class="card-body">{{ step.description }}
+                {% if step.question_set.all %}
+                  <p>Total Questions: {{ step.question_set.count }}</p>
+                {% endif %}
+{#                <a href="{% url 'courses:step' course.pk step.pk %}" class="btn p-l-0 btn-link ">Read more</a>#}
+                <a href="{{ step.get_absolute_url }}" class="btn p-l-0 btn-link ">Read more</a>
                 </div>
-                
+              </div>
             </div>
+
+              {% endfor %}
+            {% else %}
+              <h5 class="card-title">There is no steps asigned to this course</h5>
+            {% endif %}
+
+          </div>
+
+          {% if user.is_authenticated %}
+          <div class="card-body">
+            <a href="{% url 'courses:quiz.create' course.pk %}" class="m-t-10 m-b-20 waves-effect waves-dark btn btn-success btn-md btn-rounded">New Quiz</a>
+          </div>
+          {% endif %}
+
         </div>
+      </div>
     </div>
+  </div>
+
 {% endblock %}

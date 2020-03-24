@@ -1,0 +1,123 @@
+{% extends "page.html" %}
+{% load course_extras crispy_forms_tags %}
+{% block title %}
+Create Question
+{% endblock %}
+
+{% block page_content %}
+  <div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        {% if form.instance.id %}
+        <h3 class="text-themecolor">Edit question | {{ quiz.title }}</h3>
+        {% else %}
+        <h3 class="text-themecolor">New question | {{ quiz.title }}</h3>
+        {% endif %}
+    </div>
+  </div>
+  <div class="row">
+    {% if user.is_authenticated and form.instance.pk %}
+    <div class="col-12">
+      <div class="button-group text-right">
+      <a href="{% url 'courses:answer.create' form.instance.pk %}" class="btn waves-effect waves-light btn-primary">Add Anwser</a>
+      </div>
+    </div>
+    {% endif %}
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="col-12">{{ form.order|as_crispy_field }}</div>
+            <div class="col-12">{{ form.prompt|as_crispy_field }}</div>
+            {% if question_type == 'mc' %}
+              <div class="col-12">
+                <div class="form-group">
+                  <div id="div_id_shuffle_anwsers" class="switch">
+                    <label class="col-form-label">
+                      Shuffle anwsers
+                      <input type="checkbox" name="shuffle_anwsers" class=""
+                             id="id_shuffle_anwsers"
+                             {% if form.instance.multiplechoicequestion.shuffle_anwsers %}checked{% endif %}>
+                      <span class="lever switch-col-teal"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+              {{ formset.management_form }}
+              <div class="table-responsive">
+                {% if formset.non_form_errors %}
+                  {% for error in formset.non_form_errors %}
+                    <p class="alert alert-danger">
+                      {{ error }}
+                    </p>
+                  {% endfor %}
+                {% endif %}
+                <table class="table" id="tabla-formset" style="overflow: hidden">
+                  <thead>
+                  <tr>
+                    <th>Answers</th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for formsetform in formset.forms %}
+                    <tr id="{{ formsetform.prefix }}-row">
+                      {{ formsetform.id }}
+                      <td>texto {{ formsetform.text }}</td>
+                      <td>orden {{ formsetform.order }}</td>
+
+                      <td>
+                        <input type="checkbox" id="id_answers-{{forloop.counter0}}-correct" name="answers-{{forloop.counter0}}-correct" {% if formsetform.instance.correct %}checked=""{% endif %}/>
+                        <label for="id_answers-{{forloop.counter0}}-correct">correcto</label>
+                      </td>
+                      <td>
+                        {% if formsetform.instance.id %}
+                          {{ formsetform.DELETE }}
+                        {% endif %}
+                      </td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+
+
+              </div>
+            {% endif %}
+{#            <div class="row">#}
+{#              #}
+{#              <div class="col-12">{{ form.title|as_crispy_field }}</div>#}
+{#              <div class="col-12">{{ form.description|as_crispy_field }}</div>#}
+{#              <div class="col-6">{{ form.order|as_crispy_field }}</div>#}
+{#              <div class="col-6">{{ form.total_questions|as_crispy_field }}</div>#}
+{#              <div class="d-none">{{ form.honey_pot|as_crispy_field }}</div>#}
+{#            </div>#}
+            <div class="button-group">
+              <button class="btn waves-effect waves-light btn-primary" type="submit">Guardar</button>
+              <a href="{{quiz.get_absolute_url}}" class="btn waves-effect waves-light btn-secondary">Cancelar</a>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block extra-js %}
+  <script>
+  $('#tabla-formset tbody tr').formset({
+    'addText': '<i class="fa fa-plus"></i>',
+    'deleteText': '<i class="fa fa-trash tiny"></i>',
+    'addCssClass': 'btn btn-default',
+    'deleteCssClass': 'delete-formset-btn',
+    'prefix': 'answers',
+    added: function (elem) {
+      setupForm(elem);
+      $('.select2-container', '#tabla-formset').css('width', '100%');
+    },
+    removed: function (elem) {
+    }
+  });
+  </script>
+{% endblock %}

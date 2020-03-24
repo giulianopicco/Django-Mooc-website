@@ -1,0 +1,39 @@
+{% extends "page.html" %}
+{% load course_extras crispy_forms_tags %}
+{% block title %}
+Create Quiz
+{% endblock %}
+
+{% block page_content %}
+  <div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">{{ form.instance.title|default:'Create a quiz' }}</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>{{ form.errors }}</p>
+            <div class="row">
+              <div class="col-12">{{ form.title|as_crispy_field }}</div>
+              <div class="col-12">{{ form.description|as_crispy_field }}</div>
+              <div class="col-6">{{ form.order|as_crispy_field }}</div>
+              <div class="col-6">{{ form.total_questions|as_crispy_field }}</div>
+{#              <div class="d-none">{{ form.honey_pot|as_crispy_field }}</div>#}
+            </div>
+            <div class="button-group">
+              <button class="btn waves-effect waves-light btn-primary" type="submit">Guardar</button>
+              <a href="{{quiz.get_absolute_url}}" class="btn waves-effect waves-light btn-secondary">Cancelar</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block extra-js %}
+
+{% endblock %}
