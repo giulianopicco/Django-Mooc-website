@@ -1,0 +1,13 @@
+{
+  "name": "django-dynamic-formset",
+  "homepage": "https://github.com/brunogfranca/django-dynamic-formset",
+  "_release": "edd716e987",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "edd716e98718fd98c216b881e510e283663774f3"
+  },
+  "_source": "https://github.com/brunogfranca/django-dynamic-formset.git",
+  "_target": "*",
+  "_originalSource": "django-dynamic-formset"
+}

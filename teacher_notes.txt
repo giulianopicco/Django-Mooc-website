@@ -1,0 +1,33 @@
+# Rest Framework
+token Authentication
+http://www.django-rest-framework.org/api-guide/authentication/
+http://getpostman.com/
+Permissions
+http://www.django-rest-framework.org/api-guide/permissions/
+http://django-guardian.readthedocs.org/en/stable/overview.html
+Enhancing Your Calm with Throttling
+http://www.django-rest-framework.org/api-guide/throttling/
+https://docs.djangoproject.com/en/3.0/topics/cache/
+Customizing Validation
+http://www.django-rest-framework.org/api-guide/serializers/#validation
+Customizing Serialization
+https://docs.djangoproject.com/en/3.0/topics/db/aggregation/
+
+# Django Authentication
+Requiring Logins
+https://docs.djangoproject.com/en/3.0/topics/auth/default/#django.contrib.auth.mixins.LoginRequiredMixin
+LoginView
+https://docs.djangoproject.com/en/3.0/topics/auth/default/#how-to-log-a-user-in
+https://docs.djangoproject.com/en/3.0/topics/auth/default/#module-django.contrib.auth.views
+LogoutView and SignUpView
+https://django-registration.readthedocs.io/en/2.1.2/
+# If you'd like to do authentication and registration through third-party sites, let letting a user sign up with their Twitter account
+https://readthedocs.org/projects/django-allauth/
+http://psa.matiasaguirre.net/docs/index.html
+Resetting Passwords
+https://docs.djangoproject.com/en/3.0/topics/email/#email-backends
+
+# Django Social Authentication
+Introduction and GitHub token
+https://github.com/settings/applications/new
+https://django-allauth.readthedocs.io/en/stable/
