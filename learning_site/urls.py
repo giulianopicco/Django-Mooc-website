@@ -18,6 +18,14 @@ from django.urls import path, include
 from . import views, settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+from rest_framework import routers
+
+from courses import viewset
+
+router = routers.SimpleRouter()
+router.register(r'courses', viewset.CourseViewset)
+router.register(r'reviews', viewset.ReviewViewSet)
+
 
 urlpatterns = [
     path('courses/', include(('courses.urls', 'courses'), namespace='courses')),
@@ -25,6 +33,9 @@ urlpatterns = [
     path('suggestions/', views.suggestion_view, name='suggestions'),
     path('admin/', admin.site.urls),
     path('', views.hello, name='home'),
+
+    path('api/v1/courses/', include(('courses.api_urls', 'couses_list'), namespace='courses_list')),
+    path('api/v2/', include((router.urls, 'api_v2'), namespace='api_v2')),
 ]
 
 if settings.DEBUG:
