@@ -1,7 +1,7 @@
 Django==2.1.5
 django-crispy-forms==1.7.2
 git+https://github.com/jayala/django-datatable-view.git@master
-django-debug-toolbar==2.2
+django-debug-toolbar==2.2.1
 django-easy-pdf==0.1.1
 djangorestframework==3.11.0
 html5lib==1.0.1
